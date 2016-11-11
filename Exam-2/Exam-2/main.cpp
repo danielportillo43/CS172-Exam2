@@ -24,6 +24,7 @@ int main() {
     
     //Check if we need to add citizens to Spokane
     //Bonus point if you can tell me why I picked these names and Ids ;)
+    //this was the standings of the FMB world champion ships you like mountain biking
     if (spokane->populationSize() == 0)
     {
         Citizen* brandon = new Citizen(1, "Brandon", "Semenuk", "Green");
@@ -46,6 +47,7 @@ int main() {
     
     //Check if we need to add citizens to Katchem
     //Bonus point if you can tell me why I picked these names ;)
+    
     if (katchem->populationSize() == 0)
     {
         Citizen* Bartley = new Citizen(6, "Bartley", "Andre", "Green");

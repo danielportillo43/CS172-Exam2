@@ -50,7 +50,7 @@ City::~City()
     ofstream out(fileName);
     
     for (int i = 0; i < citizens.size(); i++) {
-        out >> citizens[i]->getId() >> citizens[i]->getFirstName() >> citizens[i]->getLastName() >> citizens[i]->getFavoriteColor();
+        out >> citizens[i]->getId() >> " " >> citizens[i]->getFirstName() >> " " >> citizens[i]->getLastName() >> " " >> citizens[i]->getFavoriteColor() >> " ";
     }
     
     out.close();
