@@ -7,6 +7,7 @@
 //
 
 #include "City.hpp"
+#include "Citizen.hpp"
 
 
 //Creates a new city with the given name
@@ -29,11 +30,12 @@ City::City(string name)
         for (int i = 0; i < citizens.size(); i++)
         {
             file >> iD >> first >> last >> color;
+            Citizen* citizen = NULL;
+            citizen = new Citizen(iD, first, last, color);
             citizens.push_back(new Citizen(iD, first, last, color));
-            delete Citizen;
+            delete citizen;
         }
     }
-    size = citizens.size();
     file.close();
 }
 
@@ -45,10 +47,10 @@ City::City(string name)
 City::~City()
 {
     string fileName = cityName + ".txt";
-    fstream out(fileName, ios::out);
+    ofstream out(fileName);
     
-    for (int i = 0; i < citizens->size(); i++) {
-        out << citizens[i]->getId;
+    for (int i = 0; i < citizens.size(); i++) {
+        out >> citizens[i]->getId() >> citizens[i]->getFirstName() >> citizens[i]->getLastName() >> citizens[i]->getFavoriteColor();
     }
     
     out.close();
@@ -78,14 +80,26 @@ Citizen* City::getCitizenAtIndex(int index)
 //sure to keep it around for the life of the city.
 void City::addCitizen(Citizen* citizen)
 {
-    citizen = new Citizen(id, firstName, lastName, favColor);
-    
+    int iD = citizen->getId();
+    string first = citizen->getFirstName();
+    string last = citizen->getLastName();
+    string color = citizen->getFavoriteColor();
+    Citizen* c1 = NULL;
+    c1 = new Citizen(iD,first, last, color);
+    citizens.push_back(citizen);
+    delete citizen;
 }
 
 //Returns the citizen with the given id.
 Citizen* City::getCitizenWithId(int iD)
 {
-    return citizens.at(iD);
+    for (int i = 0; i < citizens.size(); i++)
+    {
+        if (citizens[i]->getId() == iD)
+        {
+            return citizens[i];
+        }
+    }
 }
 
 //Returns a vector of citizens that all have
@@ -96,9 +110,9 @@ vector<Citizen*> City::getCitizensForFavoriteColor(string color)
 {
     vector<Citizen*>colorClub;
     for (int i = 0; i < citizens.size(); i++) {
-        if (citizens[i].getFavoriteColor() == color)
+        if (citizens[i]->getFavoriteColor() == color)
         {
-            *colorClub.push_back(citizens[i]);
+            colorClub.push_back(citizens[i]);
             i++;
         }
         else
